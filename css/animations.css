@@ -1,0 +1,388 @@
+/* ================================================================
+   NEXUS OS — Keyframe Animations Library
+   Every animation used across the entire OS
+   ================================================================ */
+
+
+/* ============================================================
+   CORE ROTATION
+   ============================================================ */
+
+@keyframes spinCW {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes rotateCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes rotateCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* ============================================================
+   PULSE / BREATHE
+   ============================================================ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes pulseScale {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes corePulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6),
+                0 0 60px rgba(0, 212, 255, 0.3),
+                0 0 120px rgba(0, 212, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(0, 212, 255, 0.9),
+                0 0 100px rgba(0, 212, 255, 0.5),
+                0 0 200px rgba(0, 212, 255, 0.2);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+  }
+  50% {
+    background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.14) 0%, transparent 70%);
+  }
+}
+
+/* ============================================================
+   FADE IN
+   ============================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================================
+   REACTOR / BOOT ANIMATIONS
+   ============================================================ */
+
+@keyframes reactorPowerUp {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
+  40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  70%  { transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes reactorRingPowerUp {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+  60%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(180deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
+
+@keyframes radarSweep {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes coreBeat {
+  0%, 90%, 100% { transform: translate(-50%, -50%) scale(1); }
+  45%           { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+/* ============================================================
+   GLITCH EFFECT
+   ============================================================ */
+
+@keyframes glitch {
+  0%          { clip-path: inset(80% 0 0 0); transform: skew(-2deg); }
+  10%         { clip-path: inset(10% 0 80% 0); transform: skew(1deg); }
+  20%         { clip-path: inset(50% 0 30% 0); transform: skew(-1.5deg); }
+  30%         { clip-path: inset(20% 0 60% 0); transform: skew(2deg); }
+  40%         { clip-path: inset(70% 0 10% 0); transform: skew(-1deg); }
+  50%         { clip-path: inset(30% 0 50% 0); transform: skew(0.5deg); }
+  60%         { clip-path: inset(5% 0 85% 0); transform: skew(-2deg); }
+  70%         { clip-path: inset(90% 0 5% 0); transform: skew(1.5deg); }
+  80%         { clip-path: inset(40% 0 40% 0); transform: skew(-1deg); }
+  90%         { clip-path: inset(15% 0 70% 0); transform: skew(2deg); }
+  100%        { clip-path: inset(60% 0 25% 0); transform: skew(0deg); }
+}
+
+@keyframes glitchB {
+  0%          { clip-path: inset(10% 0 85% 0); transform: translateX(-5px) skew(1deg); }
+  20%         { clip-path: inset(65% 0 20% 0); transform: translateX(5px) skew(-1deg); }
+  40%         { clip-path: inset(35% 0 45% 0); transform: translateX(-3px) skew(0.5deg); }
+  60%         { clip-path: inset(75% 0 10% 0); transform: translateX(4px) skew(-0.5deg); }
+  80%         { clip-path: inset(25% 0 60% 0); transform: translateX(-5px) skew(1.5deg); }
+  100%        { clip-path: inset(55% 0 30% 0); transform: translateX(3px) skew(0deg); }
+}
+
+@keyframes glitchReveal {
+  0%   { opacity: 0; transform: translateX(-5px); filter: blur(4px); }
+  20%  { opacity: 0.8; transform: translateX(3px); filter: blur(2px); }
+  40%  { opacity: 0.6; transform: translateX(-3px); filter: blur(1px); }
+  60%  { opacity: 0.9; transform: translateX(2px); filter: blur(0); }
+  80%  { opacity: 1; transform: translateX(-1px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   TEXT / CURSOR
+   ============================================================ */
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes typeReveal {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* ============================================================
+   HUD / UI EFFECTS
+   ============================================================ */
+
+@keyframes hudScanLine {
+  0%   { top: 0%; opacity: 0.6; }
+  90%  { top: 100%; opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes scanPulse {
+  0%        { transform: translateY(-100%); opacity: 0; }
+  10%       { opacity: 1; }
+  90%       { opacity: 1; }
+  100%      { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes dataFlow {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes progressFlow {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* ============================================================
+   ORBITAL / FLOATING
+   ============================================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%       { transform: translateY(-8px) rotate(1deg); }
+  66%       { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes orbitCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbitCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@keyframes counterOrbitCW {
+  from { transform: rotate(calc(var(--start-angle))) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * 0deg)); }
+  to   { transform: rotate(calc(var(--start-angle) + 360deg)) translateY(calc(-1 * var(--radius))) rotate(calc(-360deg)); }
+}
+
+/* ============================================================
+   ENERGY TRANSITION
+   ============================================================ */
+
+@keyframes energyBurst {
+  0%   { transform: scale(0); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: scale(80); opacity: 0; }
+}
+
+@keyframes energyRingExpand {
+  0%   { transform: scale(0); opacity: 0.8; }
+  100% { transform: scale(60); opacity: 0; }
+}
+
+@keyframes energyFlash {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ============================================================
+   SCROLL REVEAL CLASSES (applied via JS)
+   ============================================================ */
+
+@keyframes revealLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes revealRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   SHIMMER
+   ============================================================ */
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes holographicShimmer {
+  0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+  33%       { filter: hue-rotate(30deg) brightness(1.1); }
+  66%       { filter: hue-rotate(-30deg) brightness(0.95); }
+}
+
+/* ============================================================
+   BACKGROUND / AMBIENT
+   ============================================================ */
+
+@keyframes bgPulse {
+  0%, 100% {
+    background: radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(0, 102, 255, 0.04) 0%, transparent 60%);
+  }
+  50% {
+    background: radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(0, 102, 255, 0.07) 0%, transparent 60%);
+  }
+}
+
+/* ============================================================
+   STAT COUNTER
+   ============================================================ */
+
+@keyframes countUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ============================================================
+   SCROLL INDICATOR
+   ============================================================ */
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  40%       { transform: translateY(6px) scaleY(0.8); }
+}
+
+@keyframes scrollArrow {
+  0%        { transform: translateY(-4px); opacity: 0; }
+  50%       { opacity: 1; }
+  100%      { transform: translateY(4px); opacity: 0; }
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+@keyframes navSlideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+}
+
+/* ============================================================
+   TERMINAL LINE REVEAL
+   ============================================================ */
+
+@keyframes termLineIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes statusOk {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   MODULE PENDING LOADER
+   ============================================================ */
+
+@keyframes pendingBar {
+  0%   { width: 0%; }
+  70%  { width: 80%; }
+  90%  { width: 92%; }
+  100% { width: 80%; }
+}
+
+/* ============================================================
+   TILT CARD GLOW SWEEP
+   ============================================================ */
+
+@keyframes glowSweep {
+  0%   { transform: translateX(-100%) rotate(0deg); }
+  100% { transform: translateX(100%) rotate(0deg); }
+}
+
+/* ============================================================
+   SPHERE SCAN
+   ============================================================ */
+
+@keyframes sphereScan {
+  0%   { top: 0%; opacity: 0; }
+  10%  { opacity: 0.7; }
+  80%  { opacity: 0.5; }
+  100% { top: 100%; opacity: 0; }
+}

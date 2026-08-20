@@ -1,0 +1,192 @@
+/* ================================================================
+   NEXUS OS — Base Styles & Typography
+   Foundation styles for the entire OS
+   ================================================================ */
+
+/* ============================================================
+   GLOBAL BODY
+   ============================================================ */
+
+html {
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  overflow: hidden; /* Locked during boot */
+}
+
+body.boot-complete {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* OS state classes */
+body.os-booting  { cursor: none; }
+body.os-ready    { cursor: none; }
+
+/* ============================================================
+   NEXUS OS WRAPPER
+   ============================================================ */
+
+.nexus-os {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-void);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.nexus-os.visible {
+  opacity: 1;
+}
+
+/* ============================================================
+   SECTION BASE
+   ============================================================ */
+
+.section {
+  position: relative;
+  padding: var(--section-padding) clamp(1.5rem, 5vw, 6rem);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-header {
+  margin-bottom: var(--space-12);
+}
+
+/* ============================================================
+   TYPOGRAPHY SYSTEM
+   ============================================================ */
+
+/* Display / Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: clamp(var(--fs-4xl), 6vw, var(--fs-7xl)); }
+h2 { font-size: clamp(var(--fs-2xl), 3.5vw, var(--fs-4xl)); }
+h3 { font-size: clamp(var(--fs-xl), 2.5vw, var(--fs-3xl)); }
+h4 { font-size: clamp(var(--fs-lg), 2vw, var(--fs-xl)); }
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* Code / Mono */
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* UI Labels */
+.label, .ui-label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MAIN CANVAS (particle system)
+   ============================================================ */
+
+.main-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-below);
+  opacity: 0.7;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.nexus-footer {
+  position: relative;
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-8) clamp(1.5rem, 5vw, 6rem);
+  background: var(--color-deep);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+}
+
+.footer-status {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--neural-green);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--neural-green);
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background: var(--arc-cyan-20);
+  color: var(--arc-cyan);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--arc-cyan-40);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--arc-cyan-80);
+}

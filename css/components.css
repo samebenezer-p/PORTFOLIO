@@ -1,0 +1,319 @@
+/* ================================================================
+   NEXUS OS — Reusable Components
+   Buttons, badges, cards, and UI elements
+   ================================================================ */
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  cursor: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Primary Button — Arc Cyan */
+.btn-primary {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 212, 255, 0.05));
+  border: 1px solid var(--arc-cyan-60);
+  color: var(--arc-cyan);
+  box-shadow: var(--glow-arc-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,212,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.btn-primary:hover {
+  border-color: var(--arc-cyan);
+  box-shadow: var(--glow-arc-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:hover::before { opacity: 1; }
+
+/* Aura effect on primary button */
+.btn-aura {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--grad-arc);
+  filter: blur(8px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--transition-base);
+}
+
+.btn-primary:hover .btn-aura {
+  opacity: 0.25;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+  border-color: var(--arc-cyan-40);
+  color: var(--arc-cyan);
+  background: var(--arc-cyan-05);
+  transform: translateY(-1px);
+}
+
+/* Button icon */
+.btn-icon {
+  font-size: 0.9em;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.btn:hover .btn-icon {
+  opacity: 1;
+}
+
+/* Ripple / active */
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.badge-pulse {
+  width: 7px;
+  height: 7px;
+  background: var(--neural-green);
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.badge-available {
+  border-color: var(--neural-green-20);
+  background: var(--neural-green-10);
+  color: var(--neural-green);
+}
+
+.badge-location {
+  border-color: var(--arc-cyan-20);
+  background: var(--arc-cyan-10);
+  color: var(--arc-cyan-80);
+}
+
+.badge-student {
+  border-color: var(--reactor-gold-20);
+  background: var(--reactor-gold-10);
+  color: var(--reactor-gold-60);
+}
+
+.badge-icon {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   SOCIAL ORB BUTTONS
+   ============================================================ */
+
+.social-orb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  background: var(--arc-cyan-05);
+  color: var(--text-secondary);
+  transition: all var(--transition-base);
+  cursor: none;
+  position: relative;
+}
+
+.social-orb svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.social-orb:hover {
+  border-color: var(--arc-cyan);
+  background: var(--arc-cyan-10);
+  color: var(--arc-cyan);
+  box-shadow: var(--glow-arc-sm);
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* ============================================================
+   METRIC / STAT ITEMS
+   ============================================================ */
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-2xl), 3vw, var(--fs-4xl));
+  font-weight: 700;
+  color: var(--arc-cyan);
+  text-shadow: var(--glow-arc-sm);
+  line-height: 1;
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+}
+
+.metric-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--border-subtle);
+}
+
+/* ============================================================
+   STAT CARDS (About section)
+   ============================================================ */
+
+.stat-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.stat-card:hover {
+  border-color: var(--arc-cyan-40);
+  box-shadow: var(--glow-arc-sm);
+}
+
+.stat-card-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-4xl);
+  font-weight: 800;
+  color: var(--arc-cyan);
+  text-shadow: var(--glow-arc-sm);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.stat-card-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-3);
+}
+
+.stat-card-bar {
+  height: 2px;
+  background: var(--arc-cyan-10);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.scb-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--grad-arc);
+  border-radius: var(--radius-full);
+  transition: width 1.5s var(--ease-out);
+  box-shadow: var(--glow-arc-sm);
+}
+
+/* ============================================================
+   SCROLL INDICATOR
+   ============================================================ */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0.6;
+  animation: pulse 3s ease-in-out infinite;
+  cursor: none;
+}
+
+.si-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, var(--arc-cyan-60));
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+.si-text {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+
+.si-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid var(--arc-cyan-60);
+  border-bottom: 1px solid var(--arc-cyan-60);
+  transform: rotate(45deg);
+  animation: scrollArrow 1.5s ease-in-out infinite;
+}

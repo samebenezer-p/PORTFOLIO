@@ -1,0 +1,27 @@
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Next.js
+next-app/.next/
+next-app/node_modules/
+next-app/out/
+next-app/build/
+next-app/.vercel/
+next-app/tsconfig.tsbuildinfo
+next-app/next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/

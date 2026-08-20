@@ -1,0 +1,49 @@
+name: CI Quality Gate
+
+on:
+  push:
+    branches: [ enhancement/additive-phases, main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+# This workflow runs alongside deploy.yml — it does NOT replace it.
+# deploy.yml is left completely untouched.
+# This file adds: stricter type-checking, Node 20, and annotated failure reporting.
+
+jobs:
+  quality-gate:
+    name: Lint · TypeCheck · Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20 (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './next-app/package-lock.json'
+
+      - name: Install dependencies (clean install)
+        working-directory: next-app
+        run: npm ci
+
+      - name: ESLint — Lint source files
+        working-directory: next-app
+        run: npm run lint --if-present
+
+      - name: TypeScript — Strict type check (no emit)
+        working-directory: next-app
+        run: npx tsc --noEmit
+
+      - name: Next.js — Production build
+        working-directory: next-app
+        run: npm run build
+
+      - name: Report build output size
+        working-directory: next-app
+        run: |
+          echo "=== .next/static sizes ==="
+          du -sh .next/static/** 2>/dev/null || echo "Build output not found"

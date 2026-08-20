@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SAM EBENEZER P — Final Year CSE Student, Java Developer, AI Enthusiast & Future Software Engineer. Explore my AI-powered portfolio OS.">
+  <meta name="keywords" content="Sam Ebenezer, Portfolio, Java Developer, AI Enthusiast, Backend Developer, Software Engineer, CSE Student">
+  <meta name="author" content="Sam Ebenezer P">
+  <meta property="og:title" content="NEXUS OS // SAM EBENEZER P">
+  <meta property="og:description" content="An AI Operating System Portfolio — Enter the private laboratory of a future software engineer.">
+  <title>NEXUS OS // SAM EBENEZER P</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sections/boot.css">
+  <link rel="stylesheet" href="css/sections/nav.css">
+  <link rel="stylesheet" href="css/sections/hero.css">
+  <link rel="stylesheet" href="css/sections/about.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="os-booting" data-cursor="default">
+
+  <!-- ============================================================ -->
+  <!-- CUSTOM CURSOR SYSTEM                                          -->
+  <!-- ============================================================ -->
+  <div class="cursor-outer" id="cursor-outer" aria-hidden="true"></div>
+  <div class="cursor-inner" id="cursor-inner" aria-hidden="true"></div>
+
+  <!-- ============================================================ -->
+  <!-- BOOT SEQUENCE                                                 -->
+  <!-- ============================================================ -->
+  <section id="boot-sequence" class="boot-screen" role="region" aria-label="System Boot Sequence">
+
+    <!-- Particle Canvas -->
+    <canvas id="boot-canvas" class="boot-canvas" aria-hidden="true"></canvas>
+
+    <!-- Scanlines -->
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <!-- Vignette -->
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- Boot Core Container -->
+    <div class="boot-container">
+
+      <!-- ---- Arc Reactor ---- -->
+      <div class="arc-reactor" id="arc-reactor" aria-hidden="true">
+        <!-- Rings -->
+        <div class="reactor-ring reactor-ring--outer">
+          <div class="ring-segment seg-1"></div>
+          <div class="ring-segment seg-2"></div>
+          <div class="ring-segment seg-3"></div>
+        </div>
+        <div class="reactor-ring reactor-ring--mid"></div>
+        <div class="reactor-ring reactor-ring--inner"></div>
+
+        <!-- Core -->
+        <div class="reactor-core">
+          <div class="reactor-core-pulse"></div>
+          <div class="reactor-core-glow"></div>
+          <svg class="reactor-hex" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+            <polygon points="40,4 74,22 74,58 40,76 6,58 6,22"
+              stroke="#00D4FF" stroke-width="1.5" fill="rgba(0,212,255,0.05)"/>
+            <polygon points="40,14 64,27 64,53 40,66 16,53 16,27"
+              stroke="#00D4FF" stroke-width="1" fill="rgba(0,212,255,0.08)" opacity="0.6"/>
+            <circle cx="40" cy="40" r="10" fill="#00D4FF" opacity="0.95"/>
+            <circle cx="40" cy="40" r="5" fill="#ffffff" opacity="1"/>
+          </svg>
+        </div>
+
+        <!-- Radar Sweep -->
+        <div class="reactor-radar" aria-hidden="true"></div>
+      </div>
+
+      <!-- ---- OS Identity Label ---- -->
+      <div class="boot-os-label" id="boot-os-label" aria-hidden="true">
+        <span class="boot-label-nexus">NEXUS</span>
+        <span class="boot-label-sep"> // </span>
+        <span class="boot-label-os">OS</span>
+        <span class="boot-label-version">v2.0.26</span>
+      </div>
+
+      <!-- ---- Terminal Output ---- -->
+      <div class="boot-terminal" id="boot-terminal" role="log" aria-live="polite" aria-label="System Boot Log">
+        <div class="terminal-header" aria-hidden="true">
+          <span class="th-label">NEXUS_BOOT_LOG</span>
+          <span class="th-timestamp" id="boot-timestamp"></span>
+        </div>
+        <div class="terminal-lines" id="terminal-lines"></div>
+      </div>
+
+      <!-- ---- Progress Bar ---- -->
+      <div class="boot-progress-wrap" id="boot-progress-wrap" aria-hidden="true">
+        <div class="boot-progress-header">
+          <span class="progress-label">SYSTEM INITIALIZATION</span>
+          <span class="progress-pct"><span id="boot-pct">0</span>%</span>
+        </div>
+        <div class="boot-progress-track">
+          <div class="boot-progress-fill" id="boot-progress-fill"></div>
+          <div class="boot-progress-shimmer"></div>
+        </div>
+      </div>
+
+      <!-- ---- Access Granted Panel ---- -->
+      <div class="boot-access-panel" id="boot-access-panel" aria-live="assertive">
+        <!-- HUD Corners -->
+        <div class="hud-c hud-c--tl" aria-hidden="true"></div>
+        <div class="hud-c hud-c--tr" aria-hidden="true"></div>
+        <div class="hud-c hud-c--bl" aria-hidden="true"></div>
+        <div class="hud-c hud-c--br" aria-hidden="true"></div>
+
+        <div class="access-system-ready" id="access-system-ready">
+          <span class="sr-dot"></span>
+          <span class="sr-text">SYSTEM READY</span>
+        </div>
+
+        <div class="access-granted" id="access-granted">
+          ACCESS GRANTED
+        </div>
+
+        <div class="access-welcome" id="access-welcome">
+          WELCOME, COMMANDER
+        </div>
+
+        <div class="access-name-wrap" id="access-name-wrap">
+          <div class="access-name" id="access-name">
+            <span class="name-glitch" data-text="SAM EBENEZER P" aria-label="Sam Ebenezer P">SAM EBENEZER P</span>
+          </div>
+          <div class="access-name-sub">[ CLEARANCE: ALPHA — IDENTITY VERIFIED ]</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Energy Burst Transition -->
+    <div class="energy-transition" id="energy-transition" aria-hidden="true">
+      <div class="energy-ring e-ring-1"></div>
+      <div class="energy-ring e-ring-2"></div>
+      <div class="energy-ring e-ring-3"></div>
+      <div class="energy-core-burst"></div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- MAIN NEXUS OS INTERFACE                                       -->
+  <!-- ============================================================ -->
+  <div id="nexus-os" class="nexus-os" aria-hidden="true">
+
+    <!-- Global BG Systems -->
+    <canvas id="main-canvas" class="main-canvas" aria-hidden="true"></canvas>
+    <div class="hex-grid-bg" aria-hidden="true"></div>
+    <div class="scanlines scanlines--subtle" aria-hidden="true"></div>
+    <div class="ambient-breathe" aria-hidden="true"></div>
+
+    <!-- ======================================================== -->
+    <!-- NAVIGATION                                                -->
+    <!-- ======================================================== -->
+    <nav id="nexus-nav" class="nexus-nav" role="navigation" aria-label="Primary Navigation">
+      <div class="nav-inner">
+
+        <!-- Logo -->
+        <a href="#hero" class="nav-logo" aria-label="NEXUS OS — Home">
+          <div class="nav-logo-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none">
+              <polygon points="18,2 34,11 34,25 18,34 2,25 2,11"
+                stroke="#00D4FF" stroke-width="1.5" fill="rgba(0,212,255,0.08)"/>
+              <circle cx="18" cy="18" r="6" fill="#00D4FF"/>
+              <circle cx="18" cy="18" r="3" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="nav-logo-text">
+            <span class="nlt-nexus">NEXUS</span>
+            <span class="nlt-sep"> // </span>
+            <span class="nlt-os">OS</span>
+          </div>
+          <div class="nav-logo-pulse" aria-hidden="true"></div>
+        </a>
+
+        <!-- Links -->
+        <ul class="nav-links" role="list" id="nav-links">
+          <li><a href="#hero"       class="nav-link" data-label="01">IDENTITY</a></li>
+          <li><a href="#about"      class="nav-link" data-label="02">PROFILE</a></li>
+          <li><a href="#tech"       class="nav-link" data-label="03">NEURAL_CORE</a></li>
+          <li><a href="#projects"   class="nav-link" data-label="04">ARCHIVES</a></li>
+          <li><a href="#experience" class="nav-link" data-label="05">HISTORY</a></li>
+          <li><a href="#contact"    class="nav-link nav-link--cta" data-label="06">CONTACT.EXE</a></li>
+        </ul>
+
+        <!-- System Status -->
+        <div class="nav-status" aria-label="System Status">
+          <div class="ns-indicator" aria-hidden="true">
+            <div class="ns-dot"></div>
+          </div>
+          <span class="ns-text">SYS_ONLINE</span>
+          <div class="ns-clock" id="ns-clock" aria-label="Current Time"></div>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="nav-mobile-drawer">
+          <span class="hb-bar"></span>
+          <span class="hb-bar"></span>
+          <span class="hb-bar"></span>
+        </button>
+
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="nav-mobile-drawer" id="nav-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" aria-hidden="true">
+        <ul class="drawer-list" role="list">
+          <li><a href="#hero"       class="drawer-link">01 / IDENTITY</a></li>
+          <li><a href="#about"      class="drawer-link">02 / PROFILE</a></li>
+          <li><a href="#tech"       class="drawer-link">03 / NEURAL_CORE</a></li>
+          <li><a href="#projects"   class="drawer-link">04 / ARCHIVES</a></li>
+          <li><a href="#experience" class="drawer-link">05 / HISTORY</a></li>
+          <li><a href="#contact"    class="drawer-link drawer-link--cta">06 / CONTACT.EXE</a></li>
+        </ul>
+        <div class="drawer-footer" aria-hidden="true">
+          <span>NEXUS OS v2.0.26 — ALL SYSTEMS NOMINAL</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 01 — HERO / COMMAND CENTER                        -->
+    <!-- ======================================================== -->
+    <section id="hero" class="section hero-section" aria-label="Command Center — Identity Module">
+      <!-- HUD Corners -->
+      <div class="hud-corner hud-corner--tl" aria-hidden="true"></div>
+      <div class="hud-corner hud-corner--tr" aria-hidden="true"></div>
+      <div class="hud-corner hud-corner--bl" aria-hidden="true"></div>
+      <div class="hud-corner hud-corner--br" aria-hidden="true"></div>
+
+      <div class="hero-layout">
+
+        <!-- Left: Identity Panel -->
+        <div class="hero-identity" data-reveal="left">
+          <div class="hero-module-tag" aria-hidden="true">
+            <span class="tag-bracket">[</span>
+            IDENTITY MODULE — CLEARANCE ALPHA
+            <span class="tag-bracket">]</span>
+          </div>
+
+          <h1 class="hero-name" id="hero-name" aria-label="Sam Ebenezer P">
+            <span class="hn-line hn-line-1">SAM</span>
+            <span class="hn-line hn-line-2">EBENEZER</span>
+            <span class="hn-line hn-line-3">P</span>
+          </h1>
+
+          <div class="hero-title-row">
+            <span class="htr-prefix" aria-hidden="true">// </span>
+            <span class="hero-typewriter" id="hero-typewriter" aria-live="polite"></span>
+            <span class="hero-cursor-blink" aria-hidden="true">▊</span>
+          </div>
+
+          <div class="hero-badges" role="list">
+            <div class="hero-badge badge-available" role="listitem">
+              <span class="badge-pulse" aria-hidden="true"></span>
+              <span>AVAILABLE FOR OPPORTUNITIES</span>
+            </div>
+            <div class="hero-badge badge-location" role="listitem">
+              <span class="badge-icon" aria-hidden="true">◎</span>
+              <span>COIMBATORE, INDIA</span>
+            </div>
+            <div class="hero-badge badge-student" role="listitem">
+              <span class="badge-icon" aria-hidden="true">⬡</span>
+              <span>B.TECH CSE — FINAL YEAR</span>
+            </div>
+          </div>
+
+          <p class="hero-description">
+            Final-year CSE student engineering the future. Building intelligent systems where
+            <span class="text-arc">Java meets AI</span>, and backend architecture becomes an art form.
+            Every line of code is a step toward becoming the engineer I was built to be.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary" id="btn-init-contact">
+              <span class="btn-icon" aria-hidden="true">⬡</span>
+              <span class="btn-text">INITIALIZE_CONTACT.exe</span>
+              <span class="btn-aura" aria-hidden="true"></span>
+            </a>
+            <a href="#projects" class="btn btn-secondary" id="btn-view-archives">
+              <span class="btn-icon" aria-hidden="true">◈</span>
+              <span class="btn-text">VIEW_ARCHIVES.sys</span>
+            </a>
+            <a href="SAM_EBENEZER_P_Resume_.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-download-resume">
+              <span class="btn-icon" aria-hidden="true">🗎</span>
+              <span class="btn-text">DOWNLOAD_RESUME.sys</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics" role="list" aria-label="Key Statistics">
+            <div class="metric-item" role="listitem">
+              <span class="metric-value" data-target="10" id="metric-projects">0</span>
+              <span class="metric-label">PROJECTS</span>
+            </div>
+            <div class="metric-sep" aria-hidden="true"></div>
+            <div class="metric-item" role="listitem">
+              <span class="metric-value" data-target="5" id="metric-certs">0</span>
+              <span class="metric-label">CERTIFICATIONS</span>
+            </div>
+            <div class="metric-sep" aria-hidden="true"></div>
+            <div class="metric-item" role="listitem">
+              <span class="metric-value" data-target="3" id="metric-years">0</span>
+              <span class="metric-label">YRS CODING</span>
+            </div>
+            <div class="metric-sep" aria-hidden="true"></div>
+            <div class="metric-item" role="listitem">
+              <span class="metric-value" data-target="300" id="metric-leetcode">0</span>
+              <span class="metric-label">LEETCODE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Holographic Orbital System -->
+        <div class="hero-visual" data-reveal="right" aria-hidden="true">
+
+          <!-- Social Links Row -->
+          <div class="hero-social-links">
+            <a href="https://github.com/samebenezer2005" class="social-orb" target="_blank" rel="noopener" aria-label="GitHub Profile" data-tooltip="GITHUB">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/samebenezerp/" class="social-orb" target="_blank" rel="noopener" aria-label="LinkedIn Profile" data-tooltip="LINKEDIN">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://leetcode.com/u/SamEbenezer/" class="social-orb" target="_blank" rel="noopener" aria-label="LeetCode Profile" data-tooltip="LEETCODE">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+            </a>
+            <a href="https://www.hackerrank.com/profile/samebenezer" class="social-orb" target="_blank" rel="noopener" aria-label="HackerRank Profile" data-tooltip="HACKERRANK">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.017 9.174c-.032-.283-.32-.48-.643-.48H15.27c-.322 0-.61.197-.643.48-.066.577-.188 1.188-.365 1.813-.176.625-.418 1.137-.726 1.524-.308.387-.666.58-1.056.58-.388 0-.724-.208-1.013-.625-.288-.416-.44-.939-.456-1.565V6.756c0-.354-.287-.641-.641-.641h-1.52c-.354 0-.641.287-.641.641v8.488c0 .354.287.641.641.641h1.52c.354 0 .641-.287.641-.641v-1.28c0-.354.287-.641.641-.641h.152c.354 0 .641.287.641.641v1.28c0 .354.287.641.641.641h1.52c.354 0 .641-.287.641-.641V13.6c.193.137.406.205.638.205.33 0 .627-.182.891-.547.265-.364.477-.882.638-1.553.16-.671.272-1.38.335-2.13l.002-.014c.025-.122.041-.249.041-.387z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/_.z_a_m_._/" class="social-orb" target="_blank" rel="noopener" aria-label="Instagram Profile" data-tooltip="INSTAGRAM">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+          </div>
+
+          <!-- Orbital System -->
+          <div class="orbital-system" id="orbital-system">
+
+            <!-- Outer Orbital Ring -->
+            <div class="orbital-ring orbit-outer" aria-hidden="true">
+              <div class="orbit-node" style="--i:0; --total:6;"><span>JAVA</span></div>
+              <div class="orbit-node" style="--i:1; --total:6;"><span>AI/ML</span></div>
+              <div class="orbit-node" style="--i:2; --total:6;"><span>SPRING</span></div>
+              <div class="orbit-node" style="--i:3; --total:6;"><span>MYSQL</span></div>
+              <div class="orbit-node" style="--i:4; --total:6;"><span>DOCKER</span></div>
+              <div class="orbit-node" style="--i:5; --total:6;"><span>GIT</span></div>
+            </div>
+
+            <!-- Mid Orbital Ring -->
+            <div class="orbital-ring orbit-mid" aria-hidden="true">
+              <div class="orbit-node orbit-node--sm" style="--i:0; --total:4;"><span>PY</span></div>
+              <div class="orbit-node orbit-node--sm" style="--i:1; --total:4;"><span>JS</span></div>
+              <div class="orbit-node orbit-node--sm" style="--i:2; --total:4;"><span>SQL</span></div>
+              <div class="orbit-node orbit-node--sm" style="--i:3; --total:4;"><span>API</span></div>
+            </div>
+
+            <!-- Center Profile Sphere -->
+            <div class="profile-sphere">
+              <div class="sphere-glow" aria-hidden="true"></div>
+              <div class="sphere-rings" aria-hidden="true">
+                <div class="sphere-ring sr-1"></div>
+                <div class="sphere-ring sr-2"></div>
+              </div>
+              <div class="sphere-avatar">
+                <img src="assets/img/profile.jpg" alt="Sam Ebenezer P" class="avatar-img">
+              </div>
+              <div class="sphere-scan-line" aria-hidden="true"></div>
+            </div>
+
+          </div>
+
+          <!-- HUD Readout -->
+          <div class="profile-hud-readout" aria-hidden="true">
+            <div class="hud-read-line">SUBJECT: <span class="hrl-val">SAM EBENEZER P</span></div>
+            <div class="hud-read-line">STATUS: <span class="hrl-val hrl-green">IDENTITY CONFIRMED ✓</span></div>
+            <div class="hud-read-line">CLEARANCE: <span class="hrl-val">ALPHA</span></div>
+            <div class="hud-read-line">SYSTEM: <span class="hrl-val hrl-green">NOMINAL</span></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" aria-label="Scroll to explore">
+        <div class="si-line" aria-hidden="true"></div>
+        <span class="si-text">SCROLL TO EXPLORE</span>
+        <div class="si-arrow" aria-hidden="true"></div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 02 — ABOUT / INTELLIGENCE PROFILE                 -->
+    <!-- ======================================================== -->
+    <section id="about" class="section about-section" aria-label="Intelligence Profile">
+      <div class="section-header">
+        <div class="section-tag" aria-hidden="true">MODULE_02</div>
+        <h2 class="section-title">// INTELLIGENCE PROFILE — <span class="text-arc">CLASSIFIED</span></h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+
+      <div class="about-layout">
+
+        <!-- Bio Column -->
+        <div class="about-bio" data-reveal="left">
+          <div class="glass-panel about-bio-panel">
+            <div class="panel-tag" aria-hidden="true">SUBJECT_BRIEF.log</div>
+            <p class="about-text">
+              Engineer in the making. A final-year <span class="text-arc">Computer Science & Engineering</span> student at Karunya Institute of Technology and Sciences, Coimbatore — where every semester has been a mission to push the boundaries of what I can build.
+            </p>
+            <p class="about-text">
+              My journey started with curiosity about how machines think, which evolved into a deep passion for <span class="text-arc">Java development</span>, backend architecture, and <span class="text-arc">Artificial Intelligence</span>. I don't just write code — I craft systems.
+            </p>
+            <p class="about-text">
+              From deploying microservices with Spring Boot to experimenting with machine learning models, I treat every project as a mission briefing — with objectives, strategy, and execution that leaves no room for mediocrity.
+            </p>
+            <div class="about-quote">
+              <span class="quote-mark" aria-hidden="true">"</span>
+              I am not just learning to code. I am learning to engineer the future.
+              <span class="quote-mark" aria-hidden="true">"</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats + Skills Column -->
+        <div class="about-stats-col" data-reveal="right">
+
+          <!-- Animated Stats Grid -->
+          <div class="stats-grid" role="list" aria-label="Achievement Statistics">
+            <div class="stat-card" role="listitem">
+              <div class="stat-card-val" data-target="10">0</div>
+              <div class="stat-card-label">PROJECTS BUILT</div>
+              <div class="stat-card-bar"><div class="scb-fill"></div></div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card-val" data-target="5">0</div>
+              <div class="stat-card-label">CERTIFICATIONS</div>
+              <div class="stat-card-bar"><div class="scb-fill"></div></div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card-val" data-target="300">0</div>
+              <div class="stat-card-label">LEETCODE SOLVED</div>
+              <div class="stat-card-bar"><div class="scb-fill"></div></div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card-val" data-target="3">0</div>
+              <div class="stat-card-label">YEARS EXPERIENCE</div>
+              <div class="stat-card-bar"><div class="scb-fill"></div></div>
+            </div>
+          </div>
+
+          <!-- System Log Terminal -->
+          <div class="system-log glass-panel">
+            <div class="panel-tag" aria-hidden="true">SYSTEM_LOG.terminal</div>
+            <div class="log-line"><span class="ll-ts">[00:01]</span> <span class="ll-text">Academic excellence in CSE programs</span></div>
+            <div class="log-line"><span class="ll-ts">[00:02]</span> <span class="ll-text">Proficient in Java, Python, JavaScript</span></div>
+            <div class="log-line"><span class="ll-ts">[00:03]</span> <span class="ll-text">Spring Boot microservices architecture</span></div>
+            <div class="log-line"><span class="ll-ts">[00:04]</span> <span class="ll-text">Active on LeetCode — 300+ problems solved</span></div>
+            <div class="log-line"><span class="ll-ts">[00:05]</span> <span class="ll-text ll-green">Mission: Become elite software engineer ▊</span></div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 03 — TECH STACK — Will be built in Phase 5       -->
+    <!-- ======================================================== -->
+    <section id="tech" class="section tech-section" aria-label="Neural Core — Capability Map">
+      <div class="section-header">
+        <div class="section-tag" aria-hidden="true">MODULE_03</div>
+        <h2 class="section-title">// NEURAL CORE — <span class="text-arc">CAPABILITY MAP</span></h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+      <div class="module-pending glass-panel">
+        <div class="mp-icon" aria-hidden="true">⬡</div>
+        <div class="mp-text">[ MODULE INITIALIZING — PHASE 3 ]</div>
+        <div class="mp-bar"><div class="mp-bar-fill"></div></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 04 — PROJECTS — Will be built in Phase 6         -->
+    <!-- ======================================================== -->
+    <section id="projects" class="section projects-section" aria-label="Mission Archives">
+      <div class="section-header">
+        <div class="section-tag" aria-hidden="true">MODULE_04</div>
+        <h2 class="section-title">// MISSION ARCHIVES — <span class="text-arc">CLASSIFIED OPS</span></h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+      <div class="module-pending glass-panel">
+        <div class="mp-icon" aria-hidden="true">◈</div>
+        <div class="mp-text">[ MODULE INITIALIZING — PHASE 4 ]</div>
+        <div class="mp-bar"><div class="mp-bar-fill"></div></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 05 — EXPERIENCE — Will be built in Phase 7       -->
+    <!-- ======================================================== -->
+    <section id="experience" class="section experience-section" aria-label="Mission History">
+      <div class="section-header">
+        <div class="section-tag" aria-hidden="true">MODULE_05</div>
+        <h2 class="section-title">// MISSION HISTORY — <span class="text-arc">OPERATIONAL LOG</span></h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+      <div class="module-pending glass-panel">
+        <div class="mp-icon" aria-hidden="true">◎</div>
+        <div class="mp-text">[ MODULE INITIALIZING — PHASE 5 ]</div>
+        <div class="mp-bar"><div class="mp-bar-fill"></div></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 06 — CONTACT                                      -->
+    <!-- ======================================================== -->
+    <section id="contact" class="section contact-section" aria-label="Secure Channel">
+      <div class="section-header">
+        <div class="section-tag" aria-hidden="true">MODULE_06</div>
+        <h2 class="section-title">// INITIALIZE_SECURE_<span class="text-arc">CHANNEL.exe</span></h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+      <div class="module-pending glass-panel">
+        <div class="mp-icon" aria-hidden="true">◈</div>
+        <div class="mp-text">[ MODULE INITIALIZING — PHASE 6 ]</div>
+        <div class="mp-bar"><div class="mp-bar-fill"></div></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- FOOTER                                                    -->
+    <!-- ======================================================== -->
+    <footer class="nexus-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-logo" aria-label="NEXUS OS">
+          NEXUS <span class="text-arc">// OS</span> v2.0.26
+        </div>
+        <div class="footer-status" aria-label="System Status">
+          <span class="footer-dot" aria-hidden="true"></span>
+          ALL SYSTEMS NOMINAL
+        </div>
+        <div class="footer-copy">
+          © 2026 SAM EBENEZER P — ALL RIGHTS RESERVED
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- end #nexus-os -->
+
+  <!-- JavaScript -->
+  <script src="js/cursor.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/typewriter.js"></script>
+  <script src="js/glitch.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

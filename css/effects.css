@@ -1,0 +1,398 @@
+/* ================================================================
+   NEXUS OS — Visual Effects System
+   Reusable effects applied across the entire OS
+   ================================================================ */
+
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+
+body { cursor: none; }
+
+.cursor-outer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--arc-cyan-60);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-inner {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--arc-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  transition: transform 0.03s ease;
+  will-change: transform;
+  box-shadow: var(--glow-arc-sm);
+}
+
+body.cursor-hover .cursor-outer {
+  width: 50px;
+  height: 50px;
+  border-color: var(--arc-cyan);
+  box-shadow: 0 0 15px var(--arc-cyan-40);
+}
+
+body.cursor-click .cursor-outer {
+  transform: translate(-50%, -50%) scale(0.7);
+  border-color: var(--reactor-gold);
+}
+
+body.cursor-click .cursor-inner {
+  background: var(--reactor-gold);
+}
+
+/* ============================================================
+   SCANLINES EFFECT
+   ============================================================ */
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.scanlines--subtle {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.04) 3px,
+    rgba(0, 0, 0, 0.04) 6px
+  );
+  animation: none;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   VIGNETTE EFFECT
+   ============================================================ */
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(2, 4, 9, 0.6) 100%
+  );
+}
+
+/* ============================================================
+   GLASSMORPHISM PANEL
+   ============================================================ */
+
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad-panel);
+  pointer-events: none;
+}
+
+/* Panel tag / header label */
+.panel-tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--arc-cyan-60);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ============================================================
+   HUD CORNERS (L-shaped brackets)
+   ============================================================ */
+
+.hud-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: var(--z-raised);
+}
+
+.hud-corner::before,
+.hud-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--arc-cyan);
+  opacity: 0.7;
+}
+
+.hud-corner::before { width: 100%; height: 1.5px; }
+.hud-corner::after  { width: 1.5px; height: 100%; }
+
+.hud-corner--tl { top: 12px; left: 12px; }
+.hud-corner--tl::before { top: 0; left: 0; }
+.hud-corner--tl::after  { top: 0; left: 0; }
+
+.hud-corner--tr { top: 12px; right: 12px; }
+.hud-corner--tr::before { top: 0; right: 0; left: auto; }
+.hud-corner--tr::after  { top: 0; right: 0; left: auto; }
+
+.hud-corner--bl { bottom: 12px; left: 12px; }
+.hud-corner--bl::before { bottom: 0; top: auto; left: 0; }
+.hud-corner--bl::after  { bottom: 0; top: auto; left: 0; }
+
+.hud-corner--br { bottom: 12px; right: 12px; }
+.hud-corner--br::before { bottom: 0; top: auto; right: 0; left: auto; }
+.hud-corner--br::after  { bottom: 0; top: auto; right: 0; left: auto; }
+
+/* ============================================================
+   NEON TEXT
+   ============================================================ */
+
+.text-arc {
+  color: var(--arc-cyan);
+  text-shadow: 0 0 10px var(--arc-cyan-60), 0 0 30px var(--arc-cyan-20);
+}
+
+.text-gold {
+  color: var(--reactor-gold);
+  text-shadow: 0 0 10px var(--reactor-gold-60);
+}
+
+.text-green {
+  color: var(--neural-green);
+  text-shadow: 0 0 10px var(--neural-green-60);
+}
+
+/* Gradient text */
+.grad-text-arc {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   AMBIENT BREATHE BACKGROUND
+   ============================================================ */
+
+.ambient-breathe {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-below);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* ============================================================
+   HEX GRID BACKGROUND
+   ============================================================ */
+
+.hex-grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-below);
+  opacity: 0.04;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 18L28 2L56 18L56 50L28 66ZM28 34L0 18L0 -14L28 -30L56 -14L56 18L28 34Z' fill='none' stroke='%2300D4FF' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+}
+
+/* ============================================================
+   DATA STREAM (vertical falling code)
+   ============================================================ */
+
+.data-streams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.data-stream {
+  position: absolute;
+  top: -100%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--arc-cyan-40), transparent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--arc-cyan-40);
+  animation: dataFlow 6s linear infinite;
+  opacity: 0;
+}
+
+.data-stream:nth-child(1) { left: 20%; animation-delay: 0s; animation-duration: 5s; height: 200px; }
+.data-stream:nth-child(2) { left: 60%; animation-delay: 2s; animation-duration: 7s; height: 150px; }
+.data-stream:nth-child(3) { left: 85%; animation-delay: 4s; animation-duration: 6s; height: 250px; }
+
+/* ============================================================
+   NEON GLOW BORDERS (on interactive cards)
+   ============================================================ */
+
+.glow-border {
+  box-shadow: 0 0 0 1px var(--border-default),
+              var(--glow-arc-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.glow-border:hover {
+  box-shadow: 0 0 0 1px var(--border-strong),
+              var(--glow-arc-md);
+}
+
+/* ============================================================
+   SECTION HEADER ELEMENTS
+   ============================================================ */
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--arc-cyan-60);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-3);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-xl), 3vw, var(--fs-3xl));
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.section-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--arc-cyan-40), transparent);
+  margin-bottom: var(--space-12);
+}
+
+/* ============================================================
+   MODULE PENDING PLACEHOLDER
+   ============================================================ */
+
+.module-pending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-16);
+  min-height: 200px;
+  text-align: center;
+}
+
+.mp-icon {
+  font-size: var(--fs-3xl);
+  color: var(--arc-cyan-40);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.mp-text {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+
+.mp-bar {
+  width: 200px;
+  height: 2px;
+  background: var(--arc-cyan-10);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.mp-bar-fill {
+  height: 100%;
+  background: var(--grad-arc);
+  animation: pendingBar 2.5s ease-in-out infinite;
+  box-shadow: var(--glow-arc-sm);
+}
+
+/* ============================================================
+   SCROLL REVEAL STATES (managed by scroll.js)
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+}
+
+[data-reveal="left"]  { transform: translateX(-50px); }
+[data-reveal="right"] { transform: translateX(50px); }
+[data-reveal="up"]    { transform: translateY(40px); }
+
+[data-reveal].revealed {
+  animation: fadeIn 0.8s var(--ease-out) forwards;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+[data-reveal="left"].revealed  { animation: fadeInLeft 0.8s var(--ease-out) forwards; }
+[data-reveal="right"].revealed { animation: fadeInRight 0.8s var(--ease-out) forwards; }
+[data-reveal="up"].revealed    { animation: fadeInUp 0.8s var(--ease-out) forwards; }
+
+/* ============================================================
+   TOOLTIP SYSTEM
+   ============================================================ */
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--color-panel);
+  border: 1px solid var(--border-default);
+  color: var(--arc-cyan);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: var(--z-float);
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

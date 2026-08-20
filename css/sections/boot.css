@@ -1,0 +1,634 @@
+/* ================================================================
+   NEXUS OS — Boot Sequence Styles
+   The cinematic AI OS boot screen
+   ================================================================ */
+
+
+/* ============================================================
+   BOOT SCREEN — FULL SCREEN OVERLAY
+   ============================================================ */
+
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boot);
+  background: var(--color-void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.boot-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Boot visibility states */
+.boot-screen.boot-exit {
+  animation: fadeIn 0.5s ease reverse forwards;
+  pointer-events: none;
+}
+
+/* ============================================================
+   BOOT CONTAINER — Main content area
+   ============================================================ */
+
+.boot-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 680px;
+  padding: 2rem;
+  gap: 0;
+}
+
+/* ============================================================
+   ARC REACTOR
+   ============================================================ */
+
+.arc-reactor {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+
+  /* Power-up animation */
+  opacity: 0;
+  animation: reactorPowerUp 1s var(--ease-out) 0.3s forwards;
+}
+
+/* All rings share this base */
+.reactor-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Outer Ring — slow spin, dashed */
+.reactor-ring--outer {
+  width: 210px;
+  height: 210px;
+  border: 1px dashed rgba(0, 212, 255, 0.35);
+  box-shadow:
+    0 0 12px rgba(0, 212, 255, 0.15),
+    inset 0 0 12px rgba(0, 212, 255, 0.05);
+  animation: spinCW 28s linear infinite;
+}
+
+/* Ring segments (tick marks on outer ring) */
+.ring-segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  background: var(--arc-cyan);
+  opacity: 0.7;
+  transform-origin: -97px 0;
+}
+
+.seg-1 { transform: translateY(-50%) rotate(0deg); }
+.seg-2 { transform: translateY(-50%) rotate(120deg); }
+.seg-3 { transform: translateY(-50%) rotate(240deg); }
+
+/* Mid Ring — counter spin */
+.reactor-ring--mid {
+  width: 155px;
+  height: 155px;
+  border: 1.5px solid rgba(0, 212, 255, 0.5);
+  box-shadow:
+    0 0 18px rgba(0, 212, 255, 0.25),
+    inset 0 0 18px rgba(0, 212, 255, 0.08);
+  animation: spinCCW 16s linear infinite;
+}
+
+/* Inner Ring — fast spin, bright */
+.reactor-ring--inner {
+  width: 92px;
+  height: 92px;
+  border: 2px solid var(--arc-cyan);
+  box-shadow:
+    0 0 25px rgba(0, 212, 255, 0.5),
+    0 0 60px rgba(0, 212, 255, 0.2),
+    inset 0 0 25px rgba(0, 212, 255, 0.15);
+  animation: spinCW 8s linear infinite;
+}
+
+/* Reactor Core */
+.reactor-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: coreBeat 2s ease-in-out infinite;
+}
+
+.reactor-core-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.reactor-core-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+  animation: pulseScale 1.5s ease-in-out infinite;
+}
+
+.reactor-hex {
+  position: relative;
+  z-index: 1;
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 0 8px var(--arc-cyan));
+}
+
+/* Radar Sweep (rotating scan line inside outer ring) */
+.reactor-radar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 104px;
+  height: 104px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  animation: radarSweep 4s linear infinite;
+}
+
+.reactor-radar::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, transparent, var(--arc-cyan-60));
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* ============================================================
+   OS LABEL
+   ============================================================ */
+
+.boot-os-label {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease 1.6s forwards;
+}
+
+.boot-label-nexus {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: 0.15em;
+}
+
+.boot-label-sep {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--arc-cyan);
+  letter-spacing: 0;
+}
+
+.boot-label-os {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--arc-cyan);
+  letter-spacing: 0.15em;
+  text-shadow: var(--glow-arc-sm);
+}
+
+.boot-label-version {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-left: 6px;
+  align-self: flex-end;
+}
+
+/* ============================================================
+   TERMINAL OUTPUT
+   ============================================================ */
+
+.boot-terminal {
+  width: 100%;
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  min-height: 260px;
+  opacity: 0;
+  animation: fadeIn 0.4s ease 1.8s forwards;
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+}
+
+.th-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--arc-cyan-40);
+  letter-spacing: 0.2em;
+}
+
+.th-timestamp {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Individual terminal lines */
+.terminal-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.t-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.8;
+  animation: termLineIn 0.25s ease forwards;
+  color: var(--text-secondary);
+}
+
+.t-line-prompt {
+  color: var(--arc-cyan-40);
+  flex-shrink: 0;
+  font-size: 0.7rem;
+}
+
+.t-line-text {
+  flex: 1;
+  color: var(--text-secondary);
+}
+
+.t-line-status {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  opacity: 0;
+  animation: statusOk 0.2s ease 0.15s forwards;
+}
+
+.t-line-status--ok      { color: var(--neural-green); }
+.t-line-status--success { color: var(--arc-cyan); font-weight: 700; }
+.t-line-status--warn    { color: var(--reactor-gold); }
+.t-line-status--error   { color: var(--danger-red); }
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+
+.boot-progress-wrap {
+  width: 100%;
+  opacity: 0;
+  animation: fadeIn 0.4s ease 2s forwards;
+}
+
+.boot-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+
+.progress-pct {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--arc-cyan);
+}
+
+.boot-progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 212, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(0, 212, 255, 0.6), #00D4FF);
+  border-radius: 9999px;
+  transition: width 0.4s var(--ease-out);
+  box-shadow: 0 0 8px var(--arc-cyan);
+  position: relative;
+}
+
+.boot-progress-shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: progressFlow 1.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   ACCESS GRANTED PANEL
+   ============================================================ */
+
+.boot-access-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.boot-access-panel.visible {
+  opacity: 1;
+}
+
+/* HUD corner brackets for access panel */
+.hud-c {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+
+.hud-c::before,
+.hud-c::after {
+  content: '';
+  position: absolute;
+  background: var(--arc-cyan);
+  opacity: 0.8;
+}
+
+.hud-c::before { width: 100%; height: 1.5px; }
+.hud-c::after  { width: 1.5px; height: 100%; }
+
+.hud-c--tl { top: 20px; left: 20px; }
+.hud-c--tl::before, .hud-c--tl::after { top: 0; left: 0; }
+
+.hud-c--tr { top: 20px; right: 20px; }
+.hud-c--tr::before { top: 0; right: 0; left: auto; }
+.hud-c--tr::after  { top: 0; right: 0; left: auto; }
+
+.hud-c--bl { bottom: 20px; left: 20px; }
+.hud-c--bl::before { bottom: 0; top: auto; left: 0; }
+.hud-c--bl::after  { bottom: 0; top: auto; left: 0; }
+
+.hud-c--br { bottom: 20px; right: 20px; }
+.hud-c--br::before { bottom: 0; top: auto; right: 0; left: auto; }
+.hud-c--br::after  { bottom: 0; top: auto; right: 0; left: auto; }
+
+/* System Ready */
+.access-system-ready {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.access-system-ready.show {
+  animation: scaleIn 0.5s var(--ease-bounce) forwards;
+}
+
+.sr-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neural-green);
+  border-radius: 50%;
+  box-shadow: var(--glow-green-md);
+  animation: dotPulse 1s ease-in-out infinite;
+}
+
+.sr-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: var(--neural-green);
+  text-shadow: var(--glow-green-md);
+}
+
+/* ACCESS GRANTED */
+.access-granted {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--neural-green);
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.6),
+               0 0 60px rgba(0, 255, 136, 0.3);
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.access-granted.show {
+  animation: scaleIn 0.6s var(--ease-bounce) forwards;
+}
+
+/* WELCOME COMMANDER */
+.access-welcome {
+  font-family: var(--font-ui);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  letter-spacing: 0.4em;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.access-welcome.show {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* NAME — SAM EBENEZER P */
+.access-name-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.access-name-wrap.show {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.access-name {
+  position: relative;
+}
+
+.name-glitch {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--arc-cyan);
+  text-shadow: var(--glow-arc-lg);
+  position: relative;
+  display: inline-block;
+}
+
+/* Glitch layers (pseudo-elements) */
+.name-glitch::before,
+.name-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+.name-glitch::before {
+  color: var(--danger-red);
+  opacity: 0;
+}
+
+.name-glitch::after {
+  color: var(--neural-green);
+  opacity: 0;
+}
+
+.name-glitch.glitching::before {
+  opacity: 0.7;
+  animation: glitch 0.4s linear;
+  text-shadow: -2px 0 var(--danger-red);
+}
+
+.name-glitch.glitching::after {
+  opacity: 0.7;
+  animation: glitchB 0.4s linear;
+  text-shadow: 2px 0 var(--neural-green);
+}
+
+.access-name-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--arc-cyan-40);
+  letter-spacing: 0.2em;
+}
+
+/* ============================================================
+   ENERGY TRANSITION BURST
+   ============================================================ */
+
+.energy-transition {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: calc(var(--z-boot) - 1);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.energy-transition.firing {
+  opacity: 1;
+}
+
+/* Concentric energy rings that expand */
+.energy-ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.e-ring-1 {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--arc-cyan);
+  box-shadow: var(--glow-arc-lg);
+}
+
+.e-ring-2 {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(0,212,255,0.3) 0%, transparent 70%);
+}
+
+.e-ring-3 {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 212, 255, 0.6);
+  filter: blur(4px);
+}
+
+.energy-core-burst {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(2px);
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* Firing state — JS adds this class */
+.energy-transition.firing .e-ring-1 {
+  animation: energyRingExpand 1s var(--ease-out) 0.1s both;
+}
+
+.energy-transition.firing .e-ring-2 {
+  animation: energyRingExpand 0.9s var(--ease-out) 0s both;
+}
+
+.energy-transition.firing .e-ring-3 {
+  animation: energyRingExpand 0.8s var(--ease-out) 0.05s both;
+}
+
+.energy-transition.firing .energy-core-burst {
+  animation: energyBurst 1s var(--ease-out) 0s both;
+}

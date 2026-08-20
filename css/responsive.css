@@ -1,0 +1,234 @@
+/* ================================================================
+   NEXUS OS — Responsive Styles
+   Mobile-first breakpoints
+   ================================================================ */
+
+/* ============================================================
+   LARGE DESKTOPS (>= 1400px)
+   ============================================================ */
+
+@media (min-width: 1400px) {
+  .orbital-system {
+    width: 440px;
+    height: 440px;
+  }
+
+  .orbit-outer {
+    width: 420px;
+    height: 420px;
+  }
+
+  .orbit-node {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--i) * (360deg / var(--total))))
+      translateY(-210px);
+  }
+}
+
+/* ============================================================
+   TABLET / SMALL DESKTOP (< 1024px)
+   ============================================================ */
+
+@media (max-width: 1023px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+
+  .hero-identity {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-badges     { justify-content: center; }
+  .hero-description { max-width: 520px; margin: 0 auto; }
+  .hero-cta        { justify-content: center; }
+  .hero-metrics    { justify-content: center; }
+  .hero-module-tag { justify-content: center; }
+
+  .hero-name {
+    align-items: center;
+  }
+
+  .hero-title-row  { justify-content: center; }
+
+  .hero-visual {
+    order: -1;
+  }
+
+  .orbital-system {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbit-outer {
+    width: 290px;
+    height: 290px;
+  }
+
+  .orbit-node {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--i) * (360deg / var(--total))))
+      translateY(-145px);
+  }
+
+  .orbit-mid {
+    width: 195px;
+    height: 195px;
+  }
+
+  .orbit-mid .orbit-node {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--i) * (360deg / var(--total))))
+      translateY(-97px);
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navigation */
+  .nav-links  { display: none; }
+  .nav-status { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* ============================================================
+   MOBILE (< 640px)
+   ============================================================ */
+
+@media (max-width: 639px) {
+
+  /* Boot screen */
+  .arc-reactor {
+    width: 160px;
+    height: 160px;
+  }
+
+  .reactor-ring--outer { width: 155px; height: 155px; }
+  .reactor-ring--mid   { width: 112px; height: 112px; }
+  .reactor-ring--inner { width: 65px;  height: 65px;  }
+  .reactor-core        { width: 38px;  height: 38px;  }
+  .reactor-hex         { width: 38px;  height: 38px;  }
+
+  .boot-container { padding: 1rem; }
+  .boot-terminal  { min-height: 200px; }
+  .t-line { font-size: 0.65rem; }
+
+  .name-glitch {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+
+  .access-granted {
+    font-size: clamp(1rem, 5vw, 1.6rem);
+  }
+
+  /* Hero */
+  .hero-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .orbital-system {
+    width: 240px;
+    height: 240px;
+  }
+
+  .orbit-outer {
+    width: 230px;
+    height: 230px;
+  }
+
+  .orbit-node {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--i) * (360deg / var(--total))))
+      translateY(-115px);
+  }
+
+  .orbit-node span {
+    width: 38px;
+    height: 38px;
+    font-size: 0.55rem;
+  }
+
+  .orbit-mid {
+    width: 155px;
+    height: 155px;
+  }
+
+  .orbit-mid .orbit-node {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--i) * (360deg / var(--total))))
+      translateY(-77px);
+  }
+
+  .profile-sphere {
+    width: 100px;
+    height: 100px;
+  }
+
+  .sphere-avatar {
+    width: 88px;
+    height: 88px;
+  }
+
+  .hero-social-links {
+    gap: var(--space-2);
+  }
+
+  .social-orb {
+    width: 34px;
+    height: 34px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-bio-panel {
+    padding: var(--space-5);
+  }
+
+  .hero-metrics {
+    gap: var(--space-2);
+  }
+
+  .metric-sep {
+    height: 30px;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-2);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reactor-ring,
+  .orbital-ring,
+  .sphere-ring,
+  .orbit-node span,
+  .ambient-breathe {
+    animation: none !important;
+  }
+
+  .data-stream { display: none; }
+  .scanlines   { display: none; }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
