@@ -28,10 +28,19 @@ export default function ContactPanel() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "3243e93d-f930-4085-9d5f-aee655cb7461",
+          name: form.name,
+          email: form.email,
+          subject: form.subject ? `[NEXUS OS] ${form.subject}` : `[NEXUS OS] New message from ${form.name}`,
+          message: form.message,
+        }),
       });
       const data = await res.json();
       if (data.success) {
@@ -41,7 +50,7 @@ export default function ContactPanel() {
           setForm({ name: "", email: "", subject: "", message: "" });
         }, 3000);
       } else {
-        setErrorMessage(data.error || "Transmission failed");
+        setErrorMessage(data.message || "Transmission failed");
         setStatus("error");
         setTimeout(() => setStatus("idle"), 4000);
       }
