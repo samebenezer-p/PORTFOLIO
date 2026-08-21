@@ -6,14 +6,9 @@ import { Mail, Phone, MapPin, GitBranch, Link2, Share2, Code2, Shield, Send, Che
 
 const CONTACTS = [
   { label: "Email", value: "samebenezer718@gmail.com", icon: <Mail className="w-4 h-4" />, href: "mailto:samebenezer718@gmail.com", color: "#00E5FF" },
-  { label: "Phone", value: "+91 9789XXXXXX", icon: <Phone className="w-4 h-4" />, href: "tel:+919789000000", color: "#00FF88" },
-  { label: "Location", value: "Coimbatore, Tamil Nadu, India", icon: <MapPin className="w-4 h-4" />, href: "#", color: "#FFC107" },
-  { label: "GitHub", value: "github.com/samebenezer-p", icon: <GitBranch className="w-4 h-4" />, href: "https://github.com/samebenezer-p", color: "#A855F7" },
   { label: "LinkedIn", value: "linkedin.com/in/samebenezer", icon: <Link2 className="w-4 h-4" />, href: "https://linkedin.com/in/samebenezer", color: "#0A66C2" },
-  { label: "Instagram", value: "@_.z_a_m_._", icon: <Share2 className="w-4 h-4" />, href: "https://www.instagram.com/_.z_a_m_._/", color: "#E1306C" },
-  { label: "LeetCode", value: "leetcode.com/samebenezer", icon: <Code2 className="w-4 h-4" />, href: "https://leetcode.com/u/samebenezer/", color: "#FFC107" },
-  { label: "HackerRank", value: "hackerrank.com/samebenezer2005", icon: <Shield className="w-4 h-4" />, href: "https://hackerrank.com/samebenezer2005", color: "#00FF88" },
-  { label: "Resume Download", value: "Sam_Ebenezer_P_Resume.sys", icon: <FileText className="w-4 h-4" />, href: "#", color: "#FF3366" },
+  { label: "GitHub", value: "github.com/samebenezer-p", icon: <GitBranch className="w-4 h-4" />, href: "https://github.com/samebenezer-p", color: "#A855F7" },
+  { label: "Location", value: "Tirunelveli, Tamil Nadu, India", icon: <MapPin className="w-4 h-4" />, href: "#", color: "#FFC107" },
 ];
 
 type Status = "idle" | "sending" | "success" | "error";
