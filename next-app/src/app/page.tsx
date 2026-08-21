@@ -95,20 +95,98 @@ export default function Home() {
       {/* Visual background systems */}
       <ParticleBackground />
       
-      {/* Decorative top header hud bars */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass-panel h-16 flex items-center justify-between px-6 md:px-12 border-b border-[#00E5FF]/10">
-        <div className="flex items-center gap-3">
-          <div className="w-3.5 h-3.5 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF] animate-pulse" />
-          <span className="font-mono text-sm tracking-widest text-[#00E5FF] font-bold">NEXUS // SAM EBENEZER P</span>
+      {/* Navigation Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-[#00E5FF]/10">
+        <div className="h-16 flex items-center justify-between px-6 md:px-12">
+          <div className="flex items-center gap-3">
+            <div className="w-3.5 h-3.5 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF] animate-pulse" />
+            <a href="#hero" className="font-mono text-sm tracking-widest text-[#00E5FF] font-bold hover:text-[#18FFFF] transition-colors">NEXUS // SAM EBENEZER P</a>
+          </div>
+
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {[
+              { href: "#hero", label: "HOME" },
+              { href: "#about", label: "ABOUT" },
+              { href: "#education", label: "EDUCATION" },
+              { href: "#skills", label: "SKILLS" },
+              { href: "#experience", label: "EXPERIENCE" },
+              { href: "#projects", label: "PROJECTS" },
+              { href: "#certifications", label: "CERTS" },
+              { href: "#achievements", label: "ACHIEVEMENTS" },
+              { href: "#github", label: "GITHUB" },
+              { href: "#contact", label: "CONTACT" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="font-mono text-[10px] tracking-widest text-[#A5B4C3]/70 hover:text-[#00E5FF] hover:bg-[#00E5FF]/5 px-2.5 py-1.5 rounded transition-all duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-2 font-mono text-[10px] text-[#A5B4C3]/80 bg-[#08121E]/60 border border-[#00E5FF]/10 px-3 py-1.5 rounded-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] animate-ping" />
+              <span>SECURITY CLEARANCE: ACTIVE</span>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => {
+                const drawer = document.getElementById('mobile-nav-drawer');
+                if (drawer) drawer.classList.toggle('translate-x-full');
+              }}
+              className="lg:hidden flex flex-col gap-1 p-2 cursor-pointer"
+              aria-label="Toggle menu"
+            >
+              <span className="w-5 h-0.5 bg-[#00E5FF]" />
+              <span className="w-4 h-0.5 bg-[#00E5FF]" />
+              <span className="w-3 h-0.5 bg-[#00E5FF]" />
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[10px] text-[#A5B4C3]/80 bg-[#08121E]/60 border border-[#00E5FF]/10 px-3 py-1.5 rounded-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88] animate-ping" />
-          <span>SECURITY CLEARANCE: ACTIVE</span>
+
+        {/* Mobile Nav Drawer */}
+        <div
+          id="mobile-nav-drawer"
+          className="fixed top-16 right-0 bottom-0 w-64 bg-[#050816]/95 border-l border-[#00E5FF]/10 backdrop-blur-xl transform translate-x-full transition-transform duration-300 lg:hidden z-50 overflow-y-auto"
+        >
+          <nav className="flex flex-col p-4 gap-1">
+            {[
+              { href: "#hero", label: "01 / HOME" },
+              { href: "#about", label: "02 / ABOUT" },
+              { href: "#education", label: "03 / EDUCATION" },
+              { href: "#skills", label: "04 / SKILLS" },
+              { href: "#experience", label: "05 / EXPERIENCE" },
+              { href: "#projects", label: "06 / PROJECTS" },
+              { href: "#certifications", label: "07 / CERTIFICATIONS" },
+              { href: "#achievements", label: "08 / ACHIEVEMENTS" },
+              { href: "#github", label: "09 / GITHUB" },
+              { href: "#leetcode", label: "10 / LEETCODE" },
+              { href: "#hackerrank", label: "11 / HACKERRANK" },
+              { href: "#contact", label: "12 / CONTACT" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => {
+                  const drawer = document.getElementById('mobile-nav-drawer');
+                  if (drawer) drawer.classList.add('translate-x-full');
+                }}
+                className="font-mono text-xs tracking-widest text-[#A5B4C3]/70 hover:text-[#00E5FF] hover:bg-[#00E5FF]/5 px-4 py-3 rounded transition-all duration-200 border-b border-[#00E5FF]/5"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </header>
 
       {/* Hero commands section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
           {/* Identity Info Panel */}
           <div className="space-y-8 order-2 lg:order-1 text-left">
@@ -165,7 +243,7 @@ export default function Home() {
       </section>
 
       {/* About Profile Module */}
-      <section ref={ref} className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="about" ref={ref} className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
         <motion.div
           variants={{
             hidden: { opacity: 0, y: 30 },
@@ -253,7 +331,7 @@ export default function Home() {
       </section>
 
       {/* Education Timeline Section */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-6xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="education" className="relative py-24 px-6 md:px-12 z-10 max-w-6xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// OPERATIONAL ARCHIVE 03</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
@@ -266,7 +344,7 @@ export default function Home() {
       </section>
 
       {/* Skill Matrix Section */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="skills" className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// INTEL CORE MODULE 04</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
@@ -279,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* Experience Mission Logs */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="experience" className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// OPERATION PROTOCOL 05</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
@@ -292,7 +370,7 @@ export default function Home() {
       </section>
 
       {/* Research Laboratory Section (Projects) */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="projects" className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// RESEARCH CELL MODULE 06</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
@@ -305,7 +383,7 @@ export default function Home() {
       </section>
 
       {/* Certifications Section */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="certifications" className="relative py-24 px-6 md:px-12 z-10 max-w-5xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// CREDENTIAL ARCHIVE 07</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
@@ -318,7 +396,7 @@ export default function Home() {
       </section>
 
       {/* Hall Of Armor (Achievements) */}
-      <section className="relative py-24 px-6 md:px-12 z-10 max-w-6xl mx-auto border-t border-[#00E5FF]/10">
+      <section id="achievements" className="relative py-24 px-6 md:px-12 z-10 max-w-6xl mx-auto border-t border-[#00E5FF]/10">
         <div className="text-center space-y-2 mb-16">
           <span className="font-mono text-xs text-[#00E5FF] tracking-[0.2em]">// ACHIEVEMENT VAULT 08</span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-wider text-white uppercase">
