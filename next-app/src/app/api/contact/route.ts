@@ -1,17 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      console.error("[CONTACT] RESEND_API_KEY is missing from environment variables.");
-      return NextResponse.json(
-        { success: false, error: "Email service not configured." },
-        { status: 500 }
-      );
-    }
-
     const body = await req.json();
     const { name, email, subject, message } = body;
 
@@ -32,17 +23,27 @@ export async function POST(req: NextRequest) {
 
     console.log(`[CONTACT PAYLOAD RECEIVED] From: ${name} (${email}) | Subject: ${subject || "N/A"} | Message: ${message}`);
 
-    const resend = new Resend(apiKey);
-    const { error: sendError } = await resend.emails.send({
-      from: "NEXUS OS <onboarding@resend.dev>",
-      to: ["samebenezer718@gmail.com"],
-      replyTo: email,
-      subject: subject ? `[NEXUS OS] ${subject}` : `[NEXUS OS] New message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject || "N/A"}\n\nMessage:\n${message}`,
+    const web3formsKey = process.env.WEB3FORMS_ACCESS_KEY || "3243e93d-f930-4085-9d5f-aee655cb7461";
+
+    const web3formsRes = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: web3formsKey,
+        name: name,
+        email: email,
+        subject: subject ? `[NEXUS OS] ${subject}` : `[NEXUS OS] New message from ${name}`,
+        message: message,
+      }),
     });
 
-    if (sendError) {
-      console.error("[CONTACT SEND ERROR]", sendError);
+    const web3formsData = await web3formsRes.json();
+
+    if (!web3formsData.success) {
+      console.error("[CONTACT SEND ERROR]", web3formsData);
       return NextResponse.json(
         { success: false, error: "Transmission failed. Please try again later." },
         { status: 500 }
