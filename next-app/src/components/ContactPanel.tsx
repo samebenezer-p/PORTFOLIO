@@ -21,6 +21,7 @@ type Status = "idle" | "sending" | "success" | "error";
 export default function ContactPanel() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [focused, setFocused] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,10 +41,12 @@ export default function ContactPanel() {
           setForm({ name: "", email: "", subject: "", message: "" });
         }, 3000);
       } else {
+        setErrorMessage(data.error || "Transmission failed");
         setStatus("error");
         setTimeout(() => setStatus("idle"), 4000);
       }
-    } catch {
+    } catch (err: unknown) {
+      setErrorMessage("Network error occurred");
       setStatus("error");
       setTimeout(() => setStatus("idle"), 4000);
     }
@@ -152,6 +155,28 @@ export default function ContactPanel() {
                 <div className="text-center font-mono">
                   <div className="text-[#00FF88] font-bold text-sm">TRANSMISSION SUCCESSFUL</div>
                   <div className="text-[#A5B4C3]/60 text-xs mt-1">Message delivered to secure channel</div>
+                </div>
+              </motion.div>
+            ) : status === "error" ? (
+              <motion.div
+                key="error"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center py-12 gap-4"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", bounce: 0.5 }}
+                  className="w-16 h-16 rounded-full border-2 border-[#FF3366] flex items-center justify-center"
+                  style={{ boxShadow: "0 0 25px #FF336660" }}
+                >
+                  <div className="text-[#FF3366] font-bold text-2xl">!</div>
+                </motion.div>
+                <div className="text-center font-mono">
+                  <div className="text-[#FF3366] font-bold text-sm">TRANSMISSION FAILED</div>
+                  <div className="text-[#A5B4C3]/60 text-xs mt-1">{errorMessage}</div>
                 </div>
               </motion.div>
             ) : (
