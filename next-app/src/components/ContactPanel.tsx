@@ -35,7 +35,7 @@ export default function ContactPanel() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "3408ed3b-9b62-491d-b41a-2e9d7d7c2a1c",
+          access_key: "6f022eda-0569-4572-a6be-00c392bd2b96",
           name: form.name,
           email: form.email,
           subject: form.subject ? `[NEXUS OS] ${form.subject}` : `[NEXUS OS] New message from ${form.name}`,
